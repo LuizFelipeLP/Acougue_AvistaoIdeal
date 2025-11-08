@@ -1,0 +1,74 @@
+{
+  "carnes": [
+    {
+      "nome": "Peito desfiado",
+      "preco": 59,
+      "estoque": true,
+      "id": "2",
+      "categoria": "Ave"
+    },
+    {
+      "nome": "Alcatra",
+      "preco": 50,
+      "estoque": true,
+      "id": "3",
+      "categoria": "Bovina"
+    },
+    {
+      "id": "6458",
+      "nome": "toucinho",
+      "preco": 29,
+      "estoque": true,
+      "categoria": "Suína"
+    },
+    {
+      "nome": "linguiça",
+      "preco": 28.65,
+      "estoque": true,
+      "categoria": "Suína",
+      "id": "1f81"
+    },
+    {
+      "id": "410f",
+      "nome": "Costela de boi",
+      "preco": 38,
+      "estoque": true,
+      "categoria": "Bovina"
+    },
+    {
+      "id": "73fc",
+      "nome": "Costela de porco",
+      "preco": 30,
+      "estoque": true,
+      "categoria": "Suína"
+    },
+    {
+      "id": "53f4",
+      "nome": "asa de frango",
+      "preco": 25,
+      "estoque": true,
+      "categoria": "Aves"
+    },
+    {
+      "id": "ad32",
+      "nome": "coxa de frango",
+      "preco": 42,
+      "estoque": true,
+      "categoria": "Aves"
+    },
+    {
+      "id": "709a",
+      "nome": "peito de frango",
+      "preco": 49,
+      "estoque": true,
+      "categoria": "Aves"
+    },
+    {
+      "nome": "pato cozido",
+      "preco": 43.99,
+      "estoque": false,
+      "categoria": "Aves",
+      "id": "38bc"
+    }
+  ]
+}

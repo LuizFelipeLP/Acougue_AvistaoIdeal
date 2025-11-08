@@ -1,0 +1,358 @@
+/* =========================
+   RESET E BASE
+========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background-color: #e7e7e7;
+  color: #222;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* =========================
+   CABEÇALHO
+========================= */
+header {
+  background: linear-gradient(90deg, #b71c1c, #d32f2f);
+  color: #fff;
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+.header-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-content h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+}
+
+/* Botão Admin */
+.btn-admin {
+  background-color: #ffeb3b;
+  color: #000;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: bold;
+  text-decoration: none;
+  box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+  transition: all 0.2s ease;
+}
+
+.btn-admin:hover {
+  background-color: #fff176;
+  transform: scale(1.05);
+}
+
+/* Responsivo Header */
+@media (max-width: 600px) {
+  .header-content {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .header-content h1 {
+    text-align: center;
+    font-size: 1.5rem;
+  }
+}
+
+/* =========================
+   CONTEÚDO PRINCIPAL
+========================= */
+main {
+  flex: 1;
+  padding: 1rem;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #a81612;
+}
+
+/* =========================
+   LISTA DE CARNES (GRID)
+========================= */
+.lista-carnes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  padding: 0 1rem;
+}
+
+.card {
+  background: #ffffff;
+  border: 2px solid #000;
+  border-radius: 12px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background-color: #b71c1c;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+.card h3 {
+  margin-bottom: 0.5rem;
+  color: #d32f2f;
+  font-weight: 700;
+}
+
+.card p {
+  margin: 0.25rem 0;
+  font-size: 0.95rem;
+}
+
+/* =========================
+   STATUS DAS CARNES
+========================= */
+.disponivel {
+  color: #2e7d32;
+  font-weight: bold;
+}
+
+.indisponivel {
+  color: #b71c1c;
+  font-weight: bold;
+}
+
+/* =========================
+   RODAPÉ
+========================= */
+footer {
+  background-color: #000;
+  color: #ffeb3b;
+  text-align: center;
+  padding: 0.7rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+
+/* =========================
+   MODO RESPONSIVO
+========================= */
+@media (max-width: 600px) {
+  .card {
+    padding: 0.8rem;
+  }
+
+  h1, h2 {
+    font-size: 1.3rem;
+  }
+}
+
+/* =========================
+   LISTAGEM ADMIN
+========================= */
+#listaCarnes {
+  list-style: none;
+  padding: 0;
+}
+
+.item-carne {
+  background: #ebd513;
+  border: 2px solid #a81612;
+  border-radius: 12px;
+  margin: 12px 0;
+  padding: 16px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.info-carne h3 {
+  margin: 0;
+  font-size: 1.3em;
+  color: #b71c1c;
+}
+
+.info-carne p {
+  margin: 4px 0;
+}
+
+#listaCarnes h3 {
+  color: #a81612;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  border-bottom: 2px solid #e7c02b;
+  padding-bottom: 4px;
+}
+
+#busca-container {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+#campoBusca {
+  width: 80%;
+  max-width: 400px;
+  padding: 8px 12px;
+  border: 2px solid #a81612;
+  border-radius: 6px;
+  font-size: 1rem;
+  outline: none;
+  transition: 0.2s;
+}
+
+#campoBusca:focus {
+  border-color: #e7c02b;
+  box-shadow: 0 0 6px rgba(231, 192, 43, 0.5);
+}
+/*Talvez possamos apagar a parte de cima dessa linha*/
+/* ===== MENU DE CATEGORIAS ===== */
+.menu-categorias {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  margin: 1.2rem 0;
+}
+
+.menu-categorias button {
+  background-color: #a81612; /* vermelho principal */
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+.menu-categorias button:hover {
+  background-color: #e7c02b; /* amarelo ao passar o mouse */
+  color: #000;
+  transform: scale(1.05);
+}
+
+.menu-categorias button:active {
+  transform: scale(0.95);
+}
+
+/* ===== TÍTULOS DAS CATEGORIAS ===== */
+.titulo-categoria {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #a81612;
+  margin: 1.5rem 0 0.5rem;
+  text-align: center;
+  border-bottom: 3px solid #e7c02b;
+  display: inline-block;
+  padding-bottom: 0.2rem;
+}
+
+/* ===== CARDS ===== */
+.lista-carnes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.card h3 {
+  color: #a81612;
+  margin-bottom: 0.3rem;
+}
+
+.card p {
+  color: #333;
+  margin-bottom: 0.4rem;
+}
+
+.card .disponivel {
+  color: #198754;
+  font-weight: bold;
+}
+
+.card .indisponivel {
+  color: #d9534f;
+  font-weight: bold;
+}
+
+/* ===== CAMPO DE BUSCA ===== */
+.campo-busca {
+  display: block;
+  width: 80%;
+  max-width: 400px;
+  margin: 0 auto 1rem;
+  padding: 0.6rem;
+  border: 2px solid #a81612;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.campo-busca:focus {
+  border-color: #e7c02b;
+  box-shadow: 0 0 5px #e7c02b;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 600px) {
+  .menu-categorias {
+    gap: 0.4rem;
+  }
+
+  .menu-categorias button {
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .titulo-categoria {
+    font-size: 1.1rem;
+  }
+
+  .campo-busca {
+    width: 90%;
+  }
+}
+
+
+/*Rodar servidor:  cd backend
+dir
+npx json-server --watch db.json --port 3000*/

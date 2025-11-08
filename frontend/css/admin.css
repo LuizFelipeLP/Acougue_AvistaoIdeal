@@ -1,0 +1,246 @@
+/* ===== RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===== GERAL ===== */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #fafafa;
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== CABEÇALHO ===== */
+header {
+  background-color: #a81612; /* vermelho principal */
+  color: white;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+header h1 {
+  font-size: 1.3rem;
+  letter-spacing: 1px;
+}
+
+#logout {
+  background-color: #fff;
+  color: #a81612;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+#logout:hover {
+  background-color: #e7c02b;
+  color: #000;
+  transform: scale(1.05);
+}
+
+/* ===== CONTEÚDO ===== */
+main {
+  flex: 1;
+  padding: 1rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* ===== TÍTULO ===== */
+h2 {
+  text-align: center;
+  margin-bottom: 1.2rem;
+  color: #a81612;
+}
+
+/* ===== FORMULÁRIO ===== */
+form {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  margin-bottom: 2rem;
+}
+
+.campo {
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+  color: #a81612;
+}
+
+input, select {
+  width: 100%;
+  padding: 8px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+input:focus, select:focus {
+  border-color: #e7c02b;
+  outline: none;
+}
+
+.btn-salvar {
+  background-color: #a81612;
+  color: white;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.btn-salvar:hover {
+  background-color: #e7c02b;
+  color: #000;
+  transform: scale(1.03);
+}
+
+/* ===== MENU DE CATEGORIAS ===== */
+.menu-categorias {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+}
+
+.menu-categorias button {
+  background-color: #a81612;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+.menu-categorias button:hover {
+  background-color: #e7c02b;
+  color: #000;
+  transform: scale(1.05);
+}
+
+/* ===== LISTA DE CARNES ===== */
+#listaCarnes {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+#listaCarnes h3 {
+  color: #a81612;
+  margin-top: 1rem;
+  border-bottom: 2px solid #e7c02b;
+  padding-bottom: 4px;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+#listaCarnes li {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+#listaCarnes li strong {
+  color: #000;
+}
+
+#listaCarnes button {
+  border: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+#listaCarnes button:first-of-type {
+  background-color: #e7c02b;
+  color: #000;
+}
+
+#listaCarnes button:first-of-type:hover {
+  background-color: #f0d35c;
+  transform: scale(1.05);
+}
+
+#listaCarnes button:last-of-type {
+  background-color: #d9534f;
+  color: white;
+}
+
+#listaCarnes button:last-of-type:hover {
+  background-color: #c9302c;
+  transform: scale(1.05);
+}
+
+/* ===== RODAPÉ ===== */
+footer {
+  background-color: #a81612;
+  color: white;
+  text-align: center;
+  padding: 0.6rem;
+  font-size: 0.9rem;
+  margin-top: auto;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 1.1rem;
+  }
+
+  form {
+    padding: 1rem;
+  }
+
+  .btn-salvar {
+    font-size: 0.9rem;
+  }
+
+  #listaCarnes li {
+    padding: 0.8rem;
+  }
+
+  .menu-categorias button {
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+.menu-categorias button.ativo {
+  background-color: #e7c02b;
+  color: #000;
+  transform: scale(1.08);
+}

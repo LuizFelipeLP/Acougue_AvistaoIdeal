@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Painel do Admin - Açougue do Avistão Ideal</title>
+  <link rel="stylesheet" href="css/admin.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <header>
+    <h1>🧾 Painel do Administrador</h1>
+    <button id="logout">Sair</button>
+  </header>
+
+  <main>
+    <!-- CADASTRO -->
+    <section id="adminArea">
+      <h2>Cadastrar nova carne</h2>
+      <form id="formCadastro">
+        <div class="campo">
+          <label for="nome">Nome:</label>
+          <input type="text" id="nome" required>
+        </div>
+
+        <div class="campo">
+          <label for="preco">Preço (R$):</label>
+          <input type="number" id="preco" required step="0.01">
+        </div>
+
+        <div class="campo">
+          <label for="estoque">Tem no estoque?</label>
+          <select id="estoque">
+            <option value="true">Sim</option>
+            <option value="false">Não</option>
+          </select>
+        </div>
+
+        <div class="campo">
+          <label for="categoria">Categoria:</label>
+          <select id="categoria" required>
+            <option value="">Selecione...</option>
+            <option value="Bovina">Carne Bovina</option>
+            <option value="Suína">Carne Suína</option>
+            <option value="Aves">Aves</option>
+            <option value="Peixes">Peixes</option>
+            <option value="Outros">Outros</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn-salvar">Cadastrar</button>
+      </form>
+    </section>
+
+    <!-- FILTROS E PESQUISA -->
+    <section id="filtros">
+      <h2>Gerenciar Carnes</h2>
+      <input type="text" id="busca" placeholder="🔍 Pesquisar carne...">
+      <div id="filtroCategorias" class="menu-categorias"></div>
+    </section>
+
+    <!-- LISTA DE CARNES -->
+    <ul id="listaCarnes"></ul>
+  </main>
+
+  <footer>
+    <p>© 2025 Açougue do Avistão Ideal - Painel do Administrador</p>
+  </footer>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>
