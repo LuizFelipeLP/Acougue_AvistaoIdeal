@@ -73,9 +73,10 @@ async function carregarCarnes(filtroTexto = '') {
           card.innerHTML = `
             <h3>${carne.nome}</h3>
             <p>Preço: <strong>R$ ${carne.preco.toFixed(2)}</strong></p>
-            <p class="${carne.estoque ? 'disponivel' : 'indisponivel'}">
-              ${carne.estoque ? 'Disponível 🟢' : 'Fora de estoque 🔴'}
+            <p class="${Number(carne.estoque) ? 'disponivel' : 'indisponivel'}">
+            ${Number(carne.estoque) ? 'Disponível 🟢' : 'Fora de estoque 🔴'}
             </p>
+
           `;
           grid.appendChild(card);
         });

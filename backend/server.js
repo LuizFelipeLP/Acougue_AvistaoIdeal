@@ -1,71 +1,138 @@
-const express = require('express');
-const cors = require('cors');
-const fs = require('fs');
-const app = express();
+// backend/server.js
 
+const express = require("express");
+const cors = require("cors");
+const sqlite3 = require("sqlite3").verbose();
+const path = require("path");
+
+const app = express();
+const PORT = 3000;
+
+// 🧩 Middlewares
 app.use(cors());
 app.use(express.json());
 
-const caminhoArquivo = './carnes.json';
+// 🗄️ Caminho do banco de dados
+const dbPath = path.resolve(__dirname, "database", "carnes.db");
+const db = new sqlite3.Database(dbPath);
 
-// Função para ler o arquivo JSON
-function lerCarnes() {
-  try {
-    const dados = fs.readFileSync(caminhoArquivo, 'utf8');
-    return JSON.parse(dados);
-  } catch (err) {
-    console.error('Erro ao ler carnes:', err);
-    return [];
+// 🧱 Cria tabelas se não existirem
+db.serialize(() => {
+  // 🥩 Tabela de carnes
+  db.run(`
+    CREATE TABLE IF NOT EXISTS carnes (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      nome TEXT NOT NULL,
+      preco REAL NOT NULL,
+      estoque INTEGER NOT NULL,
+      categoria TEXT DEFAULT 'Outros'
+    )
+  `);
+
+  // 👤 Tabela de usuários
+  db.run(`
+    CREATE TABLE IF NOT EXISTS usuarios (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      nome TEXT NOT NULL,
+      email TEXT UNIQUE NOT NULL,
+      senha TEXT NOT NULL
+    )
+  `);
+
+  console.log("📦 Tabelas 'carnes' e 'usuarios' prontas no banco de dados!");
+});
+
+// 🧾 Rota: Listar todas as carnes
+app.get("/carnes", (req, res) => {
+  db.all("SELECT * FROM carnes", (err, rows) => {
+    if (err) {
+      console.error("Erro ao buscar carnes:", err);
+      return res.status(500).json({ erro: "Erro ao buscar carnes" });
+    }
+    res.json(rows);
+  });
+});
+
+// 🔍 Rota: Buscar carne por ID (necessária para o botão Editar)
+app.get("/carnes/:id", (req, res) => {
+  const { id } = req.params;
+
+  db.get("SELECT * FROM carnes WHERE id = ?", [id], (err, row) => {
+    if (err) {
+      console.error("Erro ao buscar carne:", err);
+      return res.status(500).json({ erro: "Erro ao buscar carne" });
+    }
+
+    if (!row) {
+      return res.status(404).json({ erro: "Carne não encontrada" });
+    }
+
+    res.json(row);
+  });
+});
+
+// ➕ Rota: Cadastrar nova carne
+app.post("/carnes", (req, res) => {
+  const { nome, preco, estoque, categoria } = req.body;
+
+  if (!nome || preco == null || estoque == null) {
+    return res.status(400).json({ erro: "Dados incompletos" });
   }
-}
 
-// Função para salvar no arquivo JSON
-function salvarCarnes(carnes) {
-  fs.writeFileSync(caminhoArquivo, JSON.stringify(carnes, null, 2));
-}
-
-// Rota: listar carnes
-app.get('/carnes', (req, res) => {
-  const carnes = lerCarnes();
-  res.json(carnes);
+  const sql = `INSERT INTO carnes (nome, preco, estoque, categoria) VALUES (?, ?, ?, ?)`;
+  db.run(sql, [nome, preco, estoque ? 1 : 0, categoria || "Outros"], function (err) {
+    if (err) {
+      console.error("Erro ao adicionar carne:", err);
+      return res.status(500).json({ erro: "Erro ao adicionar carne" });
+    }
+    res.status(201).json({ id: this.lastID, nome, preco, estoque, categoria });
+  });
 });
 
-app.post('/carnes', (req, res) => {
-  const carnes = lerCarnes();
-  const novoId = carnes.length > 0 ? carnes[carnes.length - 1].id + 1 : 1;
-  const novaCarne = { id: novoId, ...req.body };
-  carnes.push(novaCarne);
-  salvarCarnes(carnes);
-  res.status(201).json(novaCarne);
+// ✏️ Rota: Editar carne existente
+app.put("/carnes/:id", (req, res) => {
+  const { nome, preco, estoque, categoria } = req.body;
+  const { id } = req.params;
+
+  const sql = `
+    UPDATE carnes 
+    SET nome = ?, preco = ?, estoque = ?, categoria = ?
+    WHERE id = ?
+  `;
+
+  db.run(sql, [nome, preco, estoque ? 1 : 0, categoria || "Outros", id], function (err) {
+    if (err) {
+      console.error("Erro ao atualizar carne:", err);
+      return res.status(500).json({ erro: "Erro ao atualizar carne" });
+    }
+
+    if (this.changes === 0) {
+      return res.status(404).json({ erro: "Carne não encontrada" });
+    }
+
+    res.json({ mensagem: "Carne atualizada com sucesso" });
+  });
 });
 
-// Rota: editar carne
-app.put('/carnes/:id', (req, res) => {
-  const carnes = lerCarnes();
-  const id = parseInt(req.params.id);
-  const indice = carnes.findIndex(c => c.id === id);
+// ❌ Rota: Excluir carne
+app.delete("/carnes/:id", (req, res) => {
+  const { id } = req.params;
 
-  if (indice === -1) {
-    return res.status(404).json({ erro: 'Carne não encontrada' });
-  }
+  db.run("DELETE FROM carnes WHERE id = ?", [id], function (err) {
+    if (err) {
+      console.error("Erro ao excluir carne:", err);
+      return res.status(500).json({ erro: "Erro ao excluir carne" });
+    }
 
-  carnes[indice] = { ...carnes[indice], ...req.body };
-  salvarCarnes(carnes);
-  res.json(carnes[indice]);
+    if (this.changes === 0) {
+      return res.status(404).json({ erro: "Carne não encontrada" });
+    }
+
+    res.json({ mensagem: "Carne removida com sucesso" });
+  });
 });
 
-// Rota: excluir carne
-app.delete('/carnes/:id', (req, res) => {
-  const carnes = lerCarnes();
-  const id = parseInt(req.params.id);
-  const novasCarnes = carnes.filter(c => c.id !== id);
-
-  if (novasCarnes.length === carnes.length) {
-    return res.status(404).json({ erro: 'Carne não encontrada' });
-  }
-
-  salvarCarnes(novasCarnes);
-  res.json({ mensagem: 'Carne removida com sucesso' });
+// 🚀 Inicializa servidor
+app.listen(PORT, () => {
+  console.log(`✅ Servidor rodando em http://localhost:${PORT}`);
 });
-
-app.listen(3000, () => console.log('Servidor rodando na porta 3000'));
